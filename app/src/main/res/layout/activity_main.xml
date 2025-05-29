@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <!-- Camera preview fills the top half of the screen -->
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="0dp"
@@ -19,17 +18,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4" />
 
-    <!-- Capture button -->
     <Button
         android:id="@+id/captureButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Capture Code"
+        android:text="@string/capture_code"
         app:layout_constraintTop_toBottomOf="@id/previewView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Scrollable text area -->
     <ScrollView
         android:id="@+id/textScrollView"
         android:layout_width="0dp"
@@ -45,18 +42,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Extracted code will appear here."
+            android:text="@string/extracted_code_will_appear_here"
             android:background="#F0F0F0"
             android:textSize="14sp"
             android:textIsSelectable="true" />
     </ScrollView>
 
-    <!-- Gemini button -->
     <Button
         android:id="@+id/explainButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Explain with Gemini"
+        android:text="@string/explain_with_gemini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

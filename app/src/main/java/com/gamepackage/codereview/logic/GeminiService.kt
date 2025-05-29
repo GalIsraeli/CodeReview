@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
+// === Request Format ===
 data class GeminiRequest(
     val contents: List<Content>
 )
@@ -18,16 +19,18 @@ data class Part(
     val text: String
 )
 
+// === Response Format ===
 data class GeminiResponse(
-    val candidates: List<Candidate>
+    val candidates: List<Candidate>?
 )
 
 data class Candidate(
-    val content: Content
+    val content: Content?
 )
 
-
+// === Retrofit API Interface ===
 interface GeminiService {
+
     @POST("v1beta/models/gemini-pro:generateContent")
     suspend fun getExplanation(
         @Header("Authorization") authHeader: String,

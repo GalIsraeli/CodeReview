@@ -27,7 +27,6 @@ class ChatActivity : AppCompatActivity() {
 
         if (codeText.isNotEmpty()) {
             addMessage(codeText, isUser = true)
-            // Gemini API call would go here
             simulateGeminiResponse(codeText)
         }
 
