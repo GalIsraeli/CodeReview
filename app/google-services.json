@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "693695647359",
+    "project_id": "codereview-979fa",
+    "storage_bucket": "codereview-979fa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693695647359:android:c35f4711d0e2ab1e44394a",
+        "android_client_info": {
+          "package_name": "com.gamepackage.codereview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKDqwMkfc3yEd8b-AUBwjqpKXTRhQ-BU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
