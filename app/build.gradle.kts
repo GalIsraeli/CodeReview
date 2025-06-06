@@ -1,21 +1,9 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     alias(libs.plugins.kotlin.compose)
 }
-
-// Load local.properties
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(localPropertiesFile.inputStream())
-}
-val geminiApiKey: String = localProperties.getProperty("GEMINI_API_KEY")
-    ?: throw GradleException("GEMINI_API_KEY is missing from local.properties")
-
 
 android {
     namespace = "com.gamepackage.codereview"
@@ -29,9 +17,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
-
     }
 
     buildTypes {
@@ -43,13 +28,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -58,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -75,22 +62,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation (libs.gson)
-    implementation (libs.glide)
+    implementation(libs.gson)
+    implementation(libs.glide)
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
-    implementation ("androidx.camera:camera-core:1.3.0")
-    implementation ("androidx.camera:camera-camera2:1.3.0")
-    implementation ("androidx.camera:camera-lifecycle:1.3.0")
-    implementation ("androidx.camera:camera-view:1.3.0")
-    implementation ("androidx.camera:camera-extensions:1.3.0")
+    implementation("androidx.camera:camera-core:1.3.0")
+    implementation("androidx.camera:camera-camera2:1.3.0")
+    implementation("androidx.camera:camera-lifecycle:1.3.0")
+    implementation("androidx.camera:camera-view:1.3.0")
+    implementation("androidx.camera:camera-extensions:1.3.0")
 
-    implementation ("com.google.mlkit:text-recognition:16.0.0")
+    implementation("com.google.mlkit:text-recognition:16.0.0")
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     implementation("com.google.guava:guava:31.1-android")
 
@@ -98,16 +82,13 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-ai")
 
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-
     implementation("com.google.firebase:firebase-auth-ktx:<latest_version>")
     implementation("com.google.firebase:firebase-firestore-ktx:<latest_version>")
+
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 
     configurations.all {
         resolutionStrategy {
