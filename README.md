@@ -1,75 +1,119 @@
-Description
-An Android application that lets users capture code snippets with their device camera, extract text via ML Kit OCR, and receive explanations through a Gemini AI–powered chat. Each user can sign in, save chat conversations to Cloud Firestore, and mark chats as favorites—which become publicly viewable by all signed-in users.
+# Code Review App with Gemini AI
 
-Core Features
-Authentication (Firebase Auth)
-• Email/password sign-in and registration to scope data per user.
+An Android application that lets users capture code snippets with their device camera, extract text via ML Kit OCR, and receive explanations through a Google Gemini AI–powered chat. Users sign in with Firebase Auth, save chats in Cloud Firestore, and can mark conversations as favorites (publicly viewable by all signed-in users).
 
-Camera & OCR (CameraX + ML Kit)
-• Live camera preview and image capture.
-• Text recognition to extract code or other text from photos.
+---
 
-Gemini AI Chat
-• Conversational interface where captured text is sent to Gemini (“gemini-2.0-flash”) for explanations.
-• Real-time input, scrollable message list, and dynamic AI responses.
+## Features
 
-Cloud Firestore Integration
-• Every chat (title, timestamp, messages, favorite flag) is stored under users/{uid}/chats.
-• Users can browse their chat history in a dedicated list screen.
-• Favorite toggles copy/delete chat data into a top-level favorites collection.
-• Any signed-in user can browse and view favorite chats.
+- **User Authentication**  
+  • Email/password sign-in and registration (Firebase Auth).  
+  • Each user’s data is private under `users/{uid}/chats`.
 
-View-Only Mode
-• Opening an existing chat or favorite displays the full message history and hides the input UI.
+- **Camera & OCR**  
+  • Live camera preview and image capture (CameraX).  
+  • Text recognition (Firebase ML Kit OCR) to extract code or other text from photos.
 
-Technologies Used
-Kotlin (language)
+- **Gemini AI Chat**  
+  • Conversational interface: captured text is sent to Gemini (via Firebase AI SDK).  
+  • Scrollable RecyclerView chat UI, real-time input, dynamic AI responses.  
 
-AndroidX CameraX (camera integration)
+- **Cloud Firestore Integration**  
+  • Save each chat under `users/{uid}/chats/{chatId}` with fields:  
+    - `title` (auto-generated), `timestamp`, `isFavorited`, `messages` array.  
+  • View past conversations in **ChatsListActivity**.  
+  • Mark/unmark “favorite” → copies or deletes that chat under top-level `favorites/{ownerUid}_{chatId}`.  
+  • Any signed-in user can browse and view favorite chats in **FavoritesListActivity** / **FavoriteChatActivity**.
 
-Firebase ML Kit (text recognition)
+- **View-Only Mode**  
+  • Opening an existing chat or favorite hides the input UI and displays full history.
 
-Firebase AI SDK (Gemini 2.0 Flash) (AI chat)
+---
 
-Firebase Auth (user sign-in)
+## Technologies Used
 
-Cloud Firestore (chat storage and favorites)
+- **Kotlin** (language)  
+- **AndroidX CameraX** (camera integration)  
+- **Firebase ML Kit** (OCR text recognition)  
+- **Firebase AI SDK** (Gemini 2.0 Flash for chat)  
+- **Firebase Auth** (user sign-in)  
+- **Cloud Firestore** (chat and favorites storage)  
+- **RecyclerView + ViewBinding** (UI lists and layouts)  
+- **ConstraintLayout** (layout structure)
 
-RecyclerView + ViewBinding (UI lists and layouts)
+---
 
-ConstraintLayout (layout structure)
+---
 
-Setup & Running
-Clone the repository.
+## Setup & Installation
 
-Open in Android Studio (Arctic Fox or newer).
-
-Add google-services.json for your Firebase project under app/.
-
-Enable Email/Password Auth, Firestore, and Firebase AI (Gemini) in your Firebase console.
-
-Publish Firestore rules:
-
-groovy
-Copy
-Edit
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId}/chats/{chatId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    match /favorites/{favId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null 
-                    && request.auth.uid == request.resource.data.ownerUid;
-      allow delete: if request.auth != null 
-                    && request.auth.uid == resource.data.ownerUid;
-      allow update: if false;
-    }
+1. **Clone the repository** and open it in Android Studio (Arctic Fox or newer).  
+2. **Firebase Configuration**  
+   - Create a Firebase project.  
+   - Enable **Authentication → Email/Password**.  
+   - Enable **Cloud Firestore**.  
+   - Enable **Firebase AI (Gemini)** in your Firebase console.  
+   - Download `google-services.json` and place it under `app/`.  
+3. **Firestore Security Rules** (publish these exactly under Firestore → Rules):
+   ```groovy
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /users/{userId}/chats/{chatId} {
+         allow read, write: if request.auth != null && request.auth.uid == userId;
+       }
+       match /favorites/{favId} {
+         allow read: if request.auth != null;
+         allow create: if request.auth != null
+                       && request.auth.uid == request.resource.data.ownerUid;
+         allow delete: if request.auth != null
+                       && request.auth.uid == resource.data.ownerUid;
+         allow update: if false;
+       }
+     }
+   }
+   ```
+4. **Gradle Dependencies are managed via the Firebase BOM:**
+  ```groovy
+  dependencies {
+      implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+  
+      // Core libraries
+      implementation("androidx.core:core-ktx:1.9.0")
+      implementation("androidx.appcompat:appcompat:1.6.0")
+      implementation("com.google.android.material:material:1.8.0")
+      implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+  
+      // RecyclerView & ViewBinding
+      implementation("androidx.recyclerview:recyclerview:1.3.0")
+      buildFeatures {
+          viewBinding = true
+      }
+  
+      // CameraX & ML Kit OCR
+      implementation("androidx.camera:camera-camera2:1.2.0")
+      implementation("androidx.camera:camera-lifecycle:1.2.0")
+      implementation("com.google.mlkit:text-recognition:16.0.0")
+  
+      // Firebase Auth, Firestore, and AI (Gemini)
+      implementation("com.google.firebase:firebase-auth-ktx")
+      implementation("com.google.firebase:firebase-firestore-ktx")
+      implementation("com.google.firebase:firebase-ai-vision:19.0.0")
+      implementation("com.google.firebase:firebase-ai-mlkit:16.0.0")
+  
+      // Coroutines
+      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
   }
-}
-Sync Gradle and run on an emulator or device.
+```
+5. **Run the App**
 
-Contact / License
-This project is provided “as-is” under the MIT License. Contributions and feedback are welcome via GitHub Issues or Pull Requests.
+  - Sync Gradle.
+
+  - Build and launch on a physical device or emulator.
+
+  - You’ll first see AuthActivity to register/sign in.
+
+  - After signing in, the HomeActivity offers options to start capturing, view history, or view favorites.
+
+
+
