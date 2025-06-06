@@ -3,4 +3,5 @@
     <string name="explain_with_gemini">Explain with Gemini</string>
     <string name="extracted_code_will_appear_here">Extracted code will appear here.</string>
     <string name="capture_code">Capture Code</string>
+    <string name="title_activity_auth">AuthActivity</string>
 </resources>
