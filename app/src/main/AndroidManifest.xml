@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
-    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature android:name="android.hardware.camera.any"/>
 
     <application
         android:name=".activities.App"
@@ -14,34 +13,36 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CodeReview"
+        android:theme="@style/Theme.CodeReviewApp"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.FavoriteChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.FavoritesListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.ChatsListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.AuthActivity"
-            android:exported="true"
-            android:label="@string/title_activity_auth"
-            android:theme="@style/Theme.CodeReview">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <!-- Launcher / Splash -->
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.CodeReviewApp.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HomeActivity" />
-        <activity android:name=".activities.ChatActivity" />
-        <activity android:name=".activities.MainActivity" />
+
+        <!-- Authentication screen -->
+        <activity
+            android:name=".activities.AuthActivity"
+            android:exported="false"
+            android:label="@string/title_activity_auth"/>
+
+        <!-- Other activities (inherit the app theme) -->
+        <activity android:name=".activities.HomeActivity"/>
+        <activity android:name=".activities.ChatsListActivity"/>
+        <activity android:name=".activities.FavoritesListActivity"/>
+        <activity android:name=".activities.FavoriteChatActivity"/>
+        <activity android:name=".activities.ChatActivity"/>
+        <activity android:name=".activities.MainActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -50,8 +51,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
-
 </manifest>

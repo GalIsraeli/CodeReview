@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/extracted_code_will_appear_here"
+            android:textColor="@color/black"
             android:background="#F0F0F0"
             android:textSize="14sp"
             android:textIsSelectable="true" />
