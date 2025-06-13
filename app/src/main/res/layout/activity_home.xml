@@ -6,59 +6,63 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- App Title -->
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/appTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Code Review App"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:text="@string/app_name"
         android:gravity="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Start Capturing Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/startButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Start Capturing"
+        app:icon="@drawable/ic_camera"
+        app:iconGravity="textStart"
         app:layout_constraintTop_toBottomOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- View History Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/historyButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="View My History"
+        android:text="My History"
+        app:icon="@drawable/ic_history"
+        app:iconGravity="textStart"
         app:layout_constraintTop_toBottomOf="@id/startButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/favoritesButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="View All Favorites"
+        android:text="Favorites"
+        app:icon="@drawable/ic_star_filled"
+        app:iconGravity="textStart"
         app:layout_constraintTop_toBottomOf="@id/historyButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/ic_logout"
+        app:iconGravity="textStart"
+        app:layout_constraintTop_toBottomOf="@id/favoritesButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoritesButton"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
