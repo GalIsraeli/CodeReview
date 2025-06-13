@@ -1,3 +1,8 @@
+# Videos
+General use - https://drive.google.com/file/d/11Zj8fo3I4w1spvVq6sIdNyo2ClCO20h7/view?usp=drive_link
+Riddle solve - https://drive.google.com/file/d/11gigPyY-BdSkAJYwjPwE6dsJaJCnFEHd/view?usp=drive_link
+
+
 # Code Review App with Gemini AI
 
 An Android application that lets users capture code snippets (or any other text) with their device camera, extract text via ML Kit OCR, and receive explanations through a Google Gemini AI–powered chat. Users sign in with Firebase Auth, save chats in Cloud Firestore, and can mark conversations as favorites (publicly viewable by all signed-in users).
